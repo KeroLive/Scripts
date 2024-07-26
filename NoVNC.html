@@ -44,6 +44,20 @@
             white-space: pre;
             margin: 20px 0;
         }
+                .copy-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -58,9 +72,28 @@
           <a href="https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal" class="link-button">Open Google Cloud Shell</a>
 
         <p>Run the following command in your terminal:</p>
-        <div class="code-box">
+        <div class="code-box" id="code-box">
             curl -sLkO https://is.gd/VJd2y3/NoVNC.sh ; bash NoVNC.sh
+            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
         </div>
     </div></center>
+
+
+        <script>
+        function copyToClipboard() {
+            const codeBox = document.getElementById('code-box');
+            const range = document.createRange();
+            range.selectNode(codeBox);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                alert('Code copied to clipboard!');
+            } catch (err) {
+                alert('Failed to copy code!');
+            }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
 </body>
 </html>
