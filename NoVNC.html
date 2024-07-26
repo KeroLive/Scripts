@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kero's Tech Page RDP Over NoVNC</title>
+    <title>Kiro's Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,8 +43,9 @@
             overflow-x: auto;
             white-space: pre;
             margin: 20px 0;
+            position: relative;
         }
-                .copy-button {
+        .copy-button {
             position: absolute;
             right: 10px;
             top: 10px;
@@ -62,24 +63,21 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to Kero's Tech Page RDP Over NoVNC</h1>
+        <h1>Welcome to Kiro's Page</h1>
     </header>
-    <center>
-    <div class="container">
+   <center> <div class="container">
         <p>Check out the following resources:</p>
         <a href="https://portmap.io/" class="link-button">Visit Portmap.io</a>
-        <a href="https://kero1212.rf.gd/l" class="link-button">Page Server Script</a>
-          <a href="https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal" class="link-button">Open Google Cloud Shell</a>
-
+        <a href="https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal" class="link-button">Open Google Cloud Shell</a>
+        
         <p>Run the following command in your terminal:</p>
         <div class="code-box" id="code-box">
             curl -sLkO https://is.gd/VJd2y3/NoVNC.sh ; bash NoVNC.sh
             <button class="copy-button" onclick="copyToClipboard()">Copy</button>
         </div>
     </div></center>
-
-
-        <script>
+    
+    <script>
         function copyToClipboard() {
             const codeBox = document.getElementById('code-box');
             const range = document.createRange();
