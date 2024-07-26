@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kero's Tech Page RDP Over Nomachine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .link-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .link-button:hover {
+            background-color: #218838;
+        }
+        .code-box {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 20px 0;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Kero's Tech Page RDP Over Nomachine</h1>
+    </header>
+   <center> <div class="container">
+        <p>Check out the following resources:</p>
+        <a href="https://portmap.io/" class="link-button">Portmap</a>
+        <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
+        <a href="https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal" class="link-button">Open Google Cloud Shell</a>
+        
+        <p>Run the following command in your terminal:</p>
+        <div class="code-box" id="code-box">
+            curl -sLkO https://is.gd/Is7iOi/NoMachine.sh ; bash NoMachine.sh
+            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+        </div>
+    </div></center>
+    
+    <script>
+        function copyToClipboard() {
+            const codeBox = document.getElementById('code-box');
+            const range = document.createRange();
+            range.selectNode(codeBox);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                alert('Code copied to clipboard!');
+            } catch (err) {
+                alert('Failed to copy code!');
+            }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+</body>
+</html>
