@@ -44,17 +44,17 @@
             white-space: pre;
             margin: 20px 0;
             position: relative;
+            display: flex;
+            align-items: center;
         }
         .copy-button {
-            position: absolute;
-            right: 10px;
-            top: 10px;
             background-color: #007bff;
             color: white;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
             cursor: pointer;
+            margin-left: 10px;
         }
         .copy-button:hover {
             background-color: #0056b3;
@@ -65,7 +65,8 @@
     <header>
         <h1>Welcome to Kero's Tech Page RDP Over NoVNC</h1>
     </header>
-   <center> <div class="container">
+    <center>
+    <div class="container">
         <p>Check out the following resources:</p>
         <a href="https://portmap.io/" class="link-button">Portmap</a>
         <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
@@ -76,22 +77,23 @@
             curl -sLkO https://is.gd/VJd2y3/NoVNC.sh ; bash NoVNC.sh
             <button class="copy-button" onclick="copyToClipboard()">Copy</button>
         </div>
-    </div></center>
+    </div>
+    </center>
     
     <script>
         function copyToClipboard() {
-            const codeBox = document.getElementById('code-box');
-            const range = document.createRange();
-            range.selectNode(codeBox);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
+            const codeText = document.getElementById('code-box').childNodes[0].nodeValue.trim();
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = codeText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
             try {
                 document.execCommand('copy');
                 alert('Code copied to clipboard!');
             } catch (err) {
                 alert('Failed to copy code!');
             }
-            window.getSelection().removeAllRanges();
+            document.body.removeChild(tempTextArea);
         }
     </script>
 </body>
