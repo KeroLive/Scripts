@@ -22,6 +22,7 @@
             width: 80%;
             margin: 0 auto;
             padding: 20px;
+            text-align: center;
         }
         .link-button {
             display: inline-block;
@@ -35,6 +36,11 @@
         .link-button:hover {
             background-color: #218838;
         }
+        .code-box-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
         .code-box {
             background-color: #333;
             color: white;
@@ -42,8 +48,6 @@
             border-radius: 5px;
             overflow-x: auto;
             white-space: pre;
-            margin: 20px 0;
-            position: relative;
             display: flex;
             align-items: center;
         }
@@ -73,17 +77,18 @@
         <a href="https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal" class="link-button">Open Google Cloud Shell</a>
         
         <p>Run the following command in your terminal:</p>
-        <div class="code-box" id="code-box">
-            curl -sLkO https://is.gd/Is7iOi/NoMachine.sh ; bash NoMachine.sh
-            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+        <div class="code-box-wrapper">
+            <div class="code-box" id="code-box">
+                curl -sLkO https://is.gd/Is7iOi/NoMachine.sh ; bash NoMachine.sh
+                <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            </div>
         </div>
     </div>
     </center>
     
     <script>
         function copyToClipboard() {
-            const codeBox = document.getElementById('code-box');
-            const codeText = codeBox.childNodes[0].nodeValue.trim();
+            const codeText = document.getElementById('code-box').childNodes[0].nodeValue.trim();
             const tempTextArea = document.createElement("textarea");
             tempTextArea.value = codeText;
             document.body.appendChild(tempTextArea);
