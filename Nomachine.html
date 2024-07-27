@@ -65,7 +65,8 @@
     <header>
         <h1>Welcome to Kero's Tech Page RDP Over Nomachine</h1>
     </header>
-   <center> <div class="container">
+   <center> 
+   <div class="container">
         <p>Check out the following resources:</p>
         <a href="https://portmap.io/" class="link-button">Portmap</a>
         <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
@@ -80,16 +81,17 @@
         function copyToClipboard() {
             const codeBox = document.getElementById('code-box');
             const range = document.createRange();
-            range.selectNode(codeBox);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
+            range.selectNodeContents(codeBox);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
             try {
                 document.execCommand('copy');
                 alert('Code copied to clipboard!');
             } catch (err) {
                 alert('Failed to copy code!');
             }
-            window.getSelection().removeAllRanges();
+            selection.removeAllRanges();
         }
     </script>
 </body>
