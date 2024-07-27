@@ -65,33 +65,32 @@
     <header>
         <h1>Welcome to Kero's Tech Page RDP Over Nomachine</h1>
     </header>
-   <center> 
-   <div class="container">
+    <center>
+    <div class="container">
         <p>Check out the following resources:</p>
         <a href="https://portmap.io/" class="link-button">Portmap</a>
         <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
         <a href="https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal" class="link-button">Open Google Cloud Shell</a>
         
         <p>Run the following command in your terminal:</p>
-        <div class="code-box" id="code-box">curl -sLkO https://is.gd/Is7iOi/NoMachine.sh ; bash NoMachine.sh<button class="copy-button" onclick="copyToClipboard()">Copy</button>
-        </div>
-    </div></center>
+        <div class="code-box" id="code-box">curl -sLkO https://is.gd/Is7iOi/NoMachine.sh ; bash NoMachine.sh<button class="copy-button" onclick="copyToClipboard()">Copy</button></div>
+    </div>
+    </center>
     
     <script>
         function copyToClipboard() {
-            const codeBox = document.getElementById('code-box');
-            const range = document.createRange();
-            range.selectNodeContents(codeBox);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
+            const codeBox = document.getElementById('code-box').innerText;
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = codeBox;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
             try {
                 document.execCommand('copy');
                 alert('Code copied to clipboard!');
             } catch (err) {
                 alert('Failed to copy code!');
             }
-            selection.removeAllRanges();
+            document.body.removeChild(tempTextArea);
         }
     </script>
 </body>
