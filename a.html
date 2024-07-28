@@ -20,21 +20,6 @@
             text-align: center;
             position: relative;
         }
-        .home-button {
-            display: inline-block;
-            #background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            #position: absolute;
-            #top: 10px;
-            #left: 10px;
-        }
-        .home-button i {
-            margin-right: 5px;
-        }
         .container {
             width: 80%;
             margin: 0 auto;
@@ -49,6 +34,9 @@
             text-decoration: none;
             border-radius: 5px;
             margin: 5px 0;
+        }
+        .link-button i {
+            margin-right: 5px;
         }
         .link-button:hover {
             background-color: #218838;
@@ -84,13 +72,12 @@
 </head>
 <body>
     <header>
-
         <h1>Welcome to Kero's Tech Page RDP Over GitHub</h1>
     </header>
     <center>
     <div class="container">
         <p>Check out the following resources:</p>
-        <a href="index.html" class="home-button"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html" class="link-button"><i class="fas fa-home"></i> Home</a>
         <a href="https://portmap.io/" class="link-button">Portmap</a>
         <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
         <a href="https://github.com/" class="link-button">GitHub</a>
@@ -180,7 +167,7 @@ jobs:
             tempTextArea.select();
             try {
                 document.execCommand('copy');
-                alert('Code copied to clipboard!');
+                alert('تم نسخ الرابط إلى الحافظة');
             } catch (err) {
                 alert('Failed to copy code!');
             }
