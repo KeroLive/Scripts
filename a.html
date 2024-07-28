@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kero's Tech Page RDP Over GitHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        .home-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .home-button i {
+            margin-right: 5px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .link-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .link-button:hover {
+            background-color: #218838;
+        }
+        .code-box-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .code-box {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+            display: flex;
+            align-items: center;
+        }
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="home-button"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+        <h1>Welcome to Kero's Tech Page RDP Over GitHub</h1>
+    </header>
+    <center>
+    <div class="container">
+        <p>Check out the following resources:</p>
+        <a href="https://portmap.io/" class="link-button">Portmap</a>
+        <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
+        <a href="https://github.com/" class="link-button">GitHub</a>
+        
+        <p>Run the following command in your Action:</p>
+        <div class="code-box-wrapper">
+            <div class="code-box" id="code-box">
+name: Kero RDP
+
+on:
+  workflow_dispatch:
+    inputs:
+      portmap_config_url:
+        description: 'Please paste the URL of the webpage or file you want to download:'
+        required: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Install Chocolatey
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        
+    - name: Install OpenVPN
+      run: choco install openvpn -y
+      
+    - name: Download Portmap Configuration
+      run: |
+        $inputUrl = "${{ github.event.inputs.portmap_config_url }}"
+        $fileName = [System.IO.Path]::GetFileName($inputUrl)
+        $newUrl = "https://raw.githubusercontent.com/KeroLive/KeroTech/main/config/$fileName"
+        Invoke-WebRequest -Uri $newUrl -OutFile "C:\portmap.ovpn"
+        
+    - name: Enable Remote Desktop
+      run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+      
+    - name: Set RDP Authentication
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
+
+    - name: Open Local User KeroAdmin
+      run: |
+        if (-not (Get-LocalUser -Name "KeroAdmin" -ErrorAction SilentlyContinue)) {
+          New-LocalUser -Name "KeroAdmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force) -FullName "Kero Admin" -Description "Local user KeroAdmin"
+          Add-LocalGroupMember -Group "Administrators" -Member "KeroAdmin"
+
+          New-LocalUser -Name "Kero" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force) -FullName "Kero" -Description "Local user Kero"
+          Add-LocalGroupMember -Group "Administrators" -Member "Kero"
+        } else {
+          Write-Output "User KeroAdmin already exists."
+        }
+
+    - name: RDP Port 4000
+      run: |
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "PortNumber" -Value 4000
+        New-NetFirewallRule -DisplayName "RDP Port 4000" -Direction Inbound -Protocol TCP -LocalPort 4000 -Action Allow
+
+    - name: Restart Remote Desktop Service
+      run: Restart-Service -Name "TermService" -Force
+
+    - name: The User Name and Password
+      run: |
+        Write-Output "User Name: KeroAdmin"
+        Write-Output "Password: P@ssw0rd!"
+
+    - name: Start OpenVPN
+      run: |
+        Start-Process -NoNewWindow -FilePath "C:\Program Files\OpenVPN\bin\openvpn.exe" -ArgumentList "--config C:\portmap.ovpn" -Wait
+        
+    - name: Enable Terminal Services
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+                <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            </div>
+        </div>
+    </div>
+    </center>
+    
+    <script>
+        function copyToClipboard() {
+            const codeText = document.getElementById('code-box').childNodes[0].nodeValue.trim();
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = codeText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                alert('Code copied to clipboard!');
+            } catch (err) {
+                alert('Failed to copy code!');
+            }
+            document.body.removeChild(tempTextArea);
+        }
+    </script>
+</body>
+</html>
