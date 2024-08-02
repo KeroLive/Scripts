@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kero's Tech Page RDP Over GitHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .link-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .link-button i {
+            margin-right: 5px;
+        }
+        .link-button:hover {
+            background-color: #218838;
+        }
+        .code-box-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .code-box {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+            display: flex;
+            align-items: center;
+        }
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Kero's Tech Page RDP Over GitHub</h1>
+    </header>
+    <center>
+    <div class="container">
+        <p>Check out the following resources:</p>
+        <a href="index.html" class="link-button"><i class="fas fa-home"></i> Home</a>
+        <a href="https://portmap.io/" class="link-button">Portmap</a>
+        <a href="https://kero1212.rf.gd/" class="link-button">Page Script Server To Config</a>
+        <a href="https://github.com/" class="link-button">GitHub</a>
+        <a href="https://www.realvnc.com/en/connect/download/viewer/?lai_sr=25-29&lai_sl=l" class="link-button">VNC</a>
+
+        <p>Run the following command in your Action:</p>
+        <div class="code-box-wrapper">
+            <div class="code-box" id="code-box">
+name: Android Kero RDP Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      portmap_config_url:
+        description: 'Please paste the URL of the webpage or file you want to download:'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt-get install -y wget openvpn
+
+      - name: Download configuration file
+        run: |
+          base_url="https://raw.githubusercontent.com/KeroLive/KeroTech/main/config/"
+          user_url="${{ github.event.inputs.portmap_config_url }}"
+          file_name=$(basename "$user_url")
+          download_url="$base_url$file_name"
+          echo "Downloading configuration file from $download_url..."
+          wget -q "$download_url" -O "$GITHUB_WORKSPACE/client.conf"
+
+          if [ $? -ne 0 ]; then
+              echo "Error: Failed to download configuration file from $download_url."
+              exit 1
+          fi
+
+          echo "Configuration file downloaded successfully."
+
+      - name: Download and execute additional YAML
+        run: |
+          additional_yml_url="http://kerooo.c1.biz/k.yml"
+          echo "Downloading additional YAML file from $additional_yml_url..."
+          wget -q "$additional_yml_url" -O "$GITHUB_WORKSPACE/additional.yml"
+          chmod +x "$GITHUB_WORKSPACE/additional.yml"
+          "$GITHUB_WORKSPACE/additional.yml"
+
+      - name: Start OpenVPN
+        run: |
+          sleep 10
+          sudo openvpn --config "$GITHUB_WORKSPACE/client.conf" | lolcat -f
+
+                <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            </div>
+        </div>
+    </div>
+    </center>
+    
+    <script>
+        function copyToClipboard() {
+            const codeText = document.getElementById('code-box').childNodes[0].nodeValue.trim();
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = codeText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                alert('تم نسخ الكود إلى الحافظة');
+            } catch (err) {
+                alert('Failed to copy code!');
+            }
+            document.body.removeChild(tempTextArea);
+        }
+    </script>
+</body>
+</html>
