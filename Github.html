@@ -84,7 +84,7 @@
         
         <p>Run the following command in your Action:</p>
         <div class="code-box-wrapper">
-            <div class="code-box" id="code-box">
+            <div class="code-box" id="code-box"><!--
 name Kero RDP
 
 on
@@ -152,6 +152,7 @@ jobs
         
     - name Enable Terminal Services
       run Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+                -->
                 <button class="copy-button" onclick="copyToClipboard()">Copy</button>
             </div>
         </div>
