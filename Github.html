@@ -96,7 +96,7 @@ on
 
 jobs
   build
-    runs-on windows-latestte
+    runs-on windows-latest
 
     steps
     - name Install Chocolatey
@@ -111,7 +111,7 @@ jobs
     - name Download Portmap Configuration
       run |
         $inputUrl = "${{ github.event.inputs.portmap_config_url }}"
-        $fileNamea = [System.IO.Path]::GetFileName($inputUrl)
+        $fileName = [System.IO.Path]::GetFileName($inputUrl)
         $newUrl = "https://raw.githubusercontent.com/KeroLive/KeroTech/main/config/$fileName"
         Invoke-WebRequest -Uri $newUrl -OutFile "C:\portmap.ovpn"
         
