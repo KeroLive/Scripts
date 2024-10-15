@@ -179,10 +179,12 @@ jobs:
     - name: Install OpenVPN
       run: choco install openvpn -y
 
-    - name: Download Portmap Configuration
-      run: |
+    - name Download Portmap Configuration
+      run |
         $inputUrl = "${{ github.event.inputs.portmap_config_url }}"
-        Invoke-WebRequest -Uri $inputUrl -OutFile "C:\portmap.ovpn"
+        $fileName = [System.IO.Path]::GetFileName($inputUrl)
+        $newUrl = "https://raw.githubusercontent.com/KeroLive/KeroTech/main/config/$fileName"
+        Invoke-WebRequest -Uri $newUrl -OutFile "C:\portmap.ovpn"
 
     - name: Enable Remote Desktop
       run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
