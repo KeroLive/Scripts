@@ -179,9 +179,9 @@ jobs:
     - name: Install OpenVPN
       run: choco install openvpn -y
 
-    - name Download Portmap Configuration
-      run |
-        $inputUrl = "${{ github.event.inputs.portmap_config_url }}"
+    - name: Download Portmap Configuration
+      run: |
+        $inputUrl = "${{ inputs.portmap_config_url }}"
         $fileName = [System.IO.Path]::GetFileName($inputUrl)
         $newUrl = "https://raw.githubusercontent.com/KeroLive/KeroTech/main/config/$fileName"
         Invoke-WebRequest -Uri $newUrl -OutFile "C:\portmap.ovpn"
@@ -227,6 +227,7 @@ jobs:
 
     - name: Enable Terminal Services
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+
 
                 <button class="copy-button" onclick="copyToClipboard()">Copy</button>
             </div>
